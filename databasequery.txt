@@ -1,0 +1,5 @@
+// database : garage 
+
+use garage;
+db.createCollection('users');
+db.createCollection('')
