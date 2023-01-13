@@ -3,7 +3,7 @@ var router = express.Router();
 var carDepot = require("../models/carDepot");
 
 router.get("/allCarDepot", function (req, res) {
-  carDepot.getAllcarDepots(req, res);
+  carDepot.getAllCarDepots(req, res);
 });
 
 router.post("/addCarDepot", async function (req, res) {

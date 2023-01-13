@@ -13,6 +13,14 @@ var db = monk("localhost:27017/garage");
 // var indexRouter = require('./routes/index');
 var usersRouter = require("./routes/users");
 var carDepotRouter = require("./routes/carDepot");
+var carRouter = require("./routes/car");
+var garageRouter = require("./routes/garage");
+var expensesRouter = require("./routes/expenses");
+var chargeDetailRouter = require("./routes/chargeDetail");
+var carReceptionRouter = require("./routes/carReception");
+var carRepairRouter = require("./routes/carRepair");
+var carProblemRouter = require("./routes/carProblem");
+var invoiceRouter = require("./routes/invoice");
 
 var app = express();
 
@@ -33,7 +41,15 @@ app.use(function (req, res, next) {
 
 // app.use('/', indexRouter);
 app.use("/user", usersRouter);
+app.use("/car", carRouter);
 app.use("/carDepot", carDepotRouter);
+app.use("/garage", garageRouter);
+app.use("/expenses", expensesRouter);
+app.use("/chargeDetail", chargeDetailRouter);
+app.use("/carReception", carReceptionRouter);
+app.use("/carRepair", carRepairRouter);
+app.use("/carProblem", carProblemRouter);
+app.use("/invoice", invoiceRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
