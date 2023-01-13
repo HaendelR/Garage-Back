@@ -62,7 +62,6 @@ exports.login = async function (req, res) {
             if (err) throw err;
             res.status(200).json({ token: token, error: "" });
           });
->>>>>>> 54c597568a0ed89b2bea026b22fa48a11df308e2
 
           // res.json({token});
         } else {
