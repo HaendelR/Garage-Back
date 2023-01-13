@@ -48,10 +48,12 @@ exports.login = async function (req, res) {
         const pass = await bcrypt.compare(req.body.password, docs.password);
         if(pass) {
           var usertoken = {
-            username: docs.email,
+            email: docs.email,
             name: docs.name,
             surname: docs.surname,
-            role: docs.role
+            role: docs.role,
+            numberPhone: docs.phone,
+            genre: docs.genre
           }
 
           jwt.sign(usertoken, "randomString", (err, token) => { if (err) throw err; res.status(200).json({ token: token, error: "" });});
@@ -68,4 +70,20 @@ exports.login = async function (req, res) {
   } catch(error) {
     res.status(400).json({ error });
   }
+}
+
+exports.userconnecte = async function (req, res) {
+  const head = req.headers.authorization;
+
+  const token = head.split(' ')[1];
+  if (!token) return res.status(401).json({ message: "Token not found" });
+
+  try {
+    const decodedtoken = jwt.verify(token, "randomString");
+
+    res.json(decodedtoken);
+  } catch(e) {
+    res.status(500).send({ message: "Invalid Token"});
+  }
+  
 }
