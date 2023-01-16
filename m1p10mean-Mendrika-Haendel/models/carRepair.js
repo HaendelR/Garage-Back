@@ -46,3 +46,16 @@ exports.insertCarRepair = async function (req, res) {
     res.status(400).json({ error });
   }
 };
+
+exports.findCarRepairByStatusAndClient = async function(req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.find({
+    status: req.params.status, 
+    clientName: req.params.clientName,
+    clientSurname: req.params.clientSurname 
+  },{}, function(e,docs) {
+    res.status(200).json(docs);
+  });
+}

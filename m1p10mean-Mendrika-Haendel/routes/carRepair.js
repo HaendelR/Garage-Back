@@ -10,4 +10,8 @@ router.post("/addCarRepair", async function (req, res) {
   carRepair.insertCarRepair(req, res);
 });
 
+router.get("/carRepairStatusClient/:status/:clientName/:clientSurname", function (req, res) {
+  carRepair.findCarRepairByStatusAndClient(req, res);
+});
+
 module.exports = router;
