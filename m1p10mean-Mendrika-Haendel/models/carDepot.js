@@ -23,7 +23,7 @@ exports.insertCarDepot = async function (req, res) {
       color: req.body.color,
       dateTimeDepot: new Date(),
       status: req.body.status,
-      description: req.body.description
+      description: req.body.description,
     };
 
     var db = req.db;
@@ -42,11 +42,39 @@ exports.getCarDepose = async function (req, res) {
     var db = req.db;
     var collection = db.get(collections);
 
-    collection.find({garageName: req.params.garageName, garageLocation: req.params.garageLocation, status: "depose"}, {}, function(e, docs) {
-      res.status(200).json(docs);
-    });
-
-  } catch(error) {
-    res.status(400).json({error});
+    collection.find(
+      {
+        garageName: req.params.garageName,
+        garageLocation: req.params.garageLocation,
+        status: "depose",
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
   }
-}
+};
+
+exports.getCarDelivery = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        garageName: req.params.garageName,
+        garageLocation: req.params.garageLocation,
+        status: "delivery",
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
