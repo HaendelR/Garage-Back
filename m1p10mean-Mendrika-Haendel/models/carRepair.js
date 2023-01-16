@@ -25,6 +25,8 @@ exports.insertCarRepair = async function (req, res) {
       duration: req.body.duration,
       amount: req.body.amount,
       status: req.body.status,
+      dateTimeStart: req.body.start,
+      dateTimeStop: req.body.stop,
 
       garageName: req.body.garageName,
       garageLocation: req.body.garageLocation,

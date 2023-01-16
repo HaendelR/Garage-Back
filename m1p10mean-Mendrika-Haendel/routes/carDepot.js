@@ -6,6 +6,10 @@ router.get("/allCarDepot", function (req, res) {
   carDepot.getAllCarDepots(req, res);
 });
 
+router.get("/allCarDelivery", function (req, res) {
+  carDepot.getCarDelivery(req, res);
+});
+
 router.post("/addCarDepot", async function (req, res) {
   carDepot.insertCarDepot(req, res);
 });
