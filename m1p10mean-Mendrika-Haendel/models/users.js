@@ -83,7 +83,7 @@ exports.login = async function (req, res) {
 exports.userconnecte = async function (req, res) {
   const head = req.headers.authorization;
 
-  const token = head.split(' ')[1];
+  const token = head?.split(' ')[1];
   if (!token) return res.status(401).json({ message: "Token not found" });
 
   try {

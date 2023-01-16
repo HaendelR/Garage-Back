@@ -14,4 +14,8 @@ router.get("/carDepose/:garageName/:garageLocation", async function (req, res) {
   carDepot.getCarDepose(req, res);
 });
 
+router.get("/carDepotByMatricule/:numberPlate", async function (req, res) {
+  carDepot.findCarDepotByMatricule(req, res);
+});
+
 module.exports = router;
