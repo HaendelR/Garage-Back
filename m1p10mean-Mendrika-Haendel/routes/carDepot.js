@@ -10,4 +10,8 @@ router.post("/addCarDepot", async function (req, res) {
   carDepot.insertCarDepot(req, res);
 });
 
+router.get("/carDepose/:garageName/:garageLocation", async function (req, res) {
+  carDepot.getCarDepose(req, res);
+});
+
 module.exports = router;

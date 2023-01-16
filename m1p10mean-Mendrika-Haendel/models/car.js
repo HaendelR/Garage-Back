@@ -1,5 +1,7 @@
 var collections = "car";
 
+var today = new Date();
+
 exports.getAllcars = function (req, res) {
   var db = req.db;
   var collection = db.get(collections);
@@ -19,7 +21,7 @@ exports.insertCar = async function (req, res) {
       carModel: req.body.carModel,
       numberPlate: req.body.numberPlate,
       color: req.body.color,
-      datecreation: req.body.datecreation,
+      datecreation: today,
      
     };
 

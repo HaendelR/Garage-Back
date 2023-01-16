@@ -23,6 +23,8 @@ exports.inscription = async function (req, res) {
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10),
       role: req.body.role,
+      garageName: req.body.garageName,
+      garageLocation: req.body.garageLocation
     };
 
     var db = req.db;
@@ -54,8 +56,10 @@ exports.login = async function (req, res) {
             name: docs.name,
             surname: docs.surname,
             role: docs.role,
-            numberPhone: docs.phone,
-            genre: docs.genre
+            numberPhone: docs.numberPhone,
+            genre: docs.genre,
+            garageName: docs.garageName,
+            garageLocation: docs.garageLocation
           }
 
           jwt.sign(usertoken, "randomString", (err, token) => {
