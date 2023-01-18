@@ -15,6 +15,7 @@ exports.insertInvoice = async function (req, res) {
       clientName: req.body.clientName,
       clientSurname: req.body.clientSurname,
       clientContact: req.body.clientContact,
+      clientEmail: req.body.clientEmail,
 
       carMark: req.body.carMark,
       carModel: req.body.carModel,
