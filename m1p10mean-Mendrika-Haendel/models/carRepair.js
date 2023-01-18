@@ -14,6 +14,7 @@ exports.insertCarRepair = async function (req, res) {
     var carRepair = {
       clientName: req.body.clientName,
       clientSurname: req.body.clientSurname,
+      clientEmail: req.body.clientEmail,
       clientContact: req.body.clientContact,
 
       carMark: req.body.carMark,
