@@ -72,6 +72,20 @@ exports.findCarDepotByMatricule = async function (req, res) {
   }
 };
 
+exports.findCarDepotByMatriculeAndStatus = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.findOne({numberPlate: req.params.numberPlate, status: "depose"}, {}, function(e, docs) {
+      res.status(200).json(docs);
+    });
+
+  } catch(error) {
+
+  }
+};
+
 exports.getCarDelivery = async function (req, res) {
   try {
     var db = req.db;
@@ -91,5 +105,28 @@ exports.getCarDelivery = async function (req, res) {
   } catch (error) {
     res.status(400).json({ error });
   }
+}
+
+exports.updateStatusCarDepot = async function(req, res) {
+  try {
+    var db = req.db
+    var collection = db.get(collections)
+
+    collection.update(
+      {
+        numberPlate: req.body.numberPlate, 
+        status: "depose"
+      },
+      {
+        $set: {status: req.body.status}
+      },
+      function(e, docs) {
+        res.status(200).json(docs)
+      }
+    )
+  } catch(error) {
+    res.status(400).json({error})
+  }
+
 }
     

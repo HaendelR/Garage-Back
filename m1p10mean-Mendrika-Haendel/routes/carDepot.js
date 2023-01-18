@@ -22,4 +22,12 @@ router.get("/carDepotByMatricule/:numberPlate", async function (req, res) {
   carDepot.findCarDepotByMatricule(req, res);
 });
 
+router.get("/carDepotByMatriculeAndStatus/:numberPlate", async function (req, res) {
+  carDepot.findCarDepotByMatricule(req, res);
+});
+
+router.put("/updateStatusCarDepot", async function(req, res) {
+  carDepot.updateStatusCarDepot(req, res);
+});
+
 module.exports = router;
