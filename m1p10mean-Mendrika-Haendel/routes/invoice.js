@@ -6,6 +6,10 @@ router.get("/allInvoice", function (req, res) {
   invoice.getAllInvoice(req, res);
 });
 
+router.get("/InvoiceByMatriculeAndStatus/:numberPlate/:status", function (req, res) {
+  invoice.findInvoiceByCarMatriculeAndInvoiceStatus(req, res);
+});
+
 router.post("/addInvoice", async function (req, res) {
   invoice.insertInvoice(req, res);
 });

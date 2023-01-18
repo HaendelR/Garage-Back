@@ -44,3 +44,18 @@ exports.insertInvoice = async function (req, res) {
     res.status(400).json({ error });
   }
 };
+
+exports.findInvoiceByCarMatriculeAndInvoiceStatus = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.findOne(
+      { numberPlate: req.params.numberPlate, status: req.params.status },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {}
+};
