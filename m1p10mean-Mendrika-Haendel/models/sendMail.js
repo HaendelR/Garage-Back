@@ -15,7 +15,7 @@ exports.getEmail = function (req, res) {
     from: "garagemeha@gmail.com",
     to: to,
     subject: subject,
-    html: `<b>Madame, Monsieur,</b><br>${text}. Veuillez vous connectez sur http://localhost:4200 <br><br/><b>Cordialement,<b/><br><br/><b>Garage Meha<b/>`,
+    html: `<b>Madame, Monsieur,</b><br>${text}. Pour plus de détails veuillez vous connectez sur http://localhost:4200 <br><br/><b>Cordialement,<b/><br><br/><b>Garage Meha<b/>`,
   };
   transporter.sendMail(mailData, function (err, info) {
     if (err) console.log(err);
