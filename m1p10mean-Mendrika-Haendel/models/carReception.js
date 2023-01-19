@@ -17,6 +17,7 @@ exports.insertCarReception = async function (req, res) {
       clientName: req.body.clientName,
       clientSurname: req.body.clientSurname,
       clientContact: req.body.clientContact,
+      clientEmail: req.body.clientEmail,
       userName: req.body.userName,
       userSurname: req.body.userSurname,
       userContact: req.body.userContact,
