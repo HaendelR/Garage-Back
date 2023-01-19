@@ -10,4 +10,8 @@ router.post("/addCar", async function (req, res) {
   car.insertCar(req, res);
 });
 
+router.get("/findCar/:numberPlate", function (req, res) {
+  car.findCar(req, res);
+});
+
 module.exports = router;

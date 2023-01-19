@@ -43,3 +43,24 @@ exports.insertInvoice = async function (req, res) {
     res.status(400).json({ error });
   }
 };
+
+
+exports.findInvoiceByClient = async function(req, res) {
+  try {
+    var db = req.db
+    var collection = db.get(collections)
+
+    collection.find(
+      {
+        clientName: req.params.clientName,
+        clientSurname: req.params.clientSurname
+      }, 
+      {},
+      function(e, docs) {
+        res.status(200).json(docs)
+      }
+    )
+  } catch(error) {
+    res.status(400).json({error})
+  }
+}

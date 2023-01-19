@@ -10,4 +10,8 @@ router.post("/addInvoice", async function (req, res) {
   invoice.insertInvoice(req, res);
 });
 
+router.get("/findInvoiceByClient/:clientName/:clientSurname", async function (req, res) {
+  invoice.findInvoiceByClient(req, res);
+});
+
 module.exports = router;

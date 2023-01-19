@@ -35,3 +35,21 @@ exports.insertCar = async function (req, res) {
     res.status(400).json({ error });
   }
 };
+
+exports.findCar = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.findOne({
+      numberPlate: req.params.numberPlate
+    },
+    {},
+    function(e, docs) {
+      res.status(200).json(docs);
+    }
+    )
+  } catch(e) {
+    res.status(400).json({error});
+  }
+} 
