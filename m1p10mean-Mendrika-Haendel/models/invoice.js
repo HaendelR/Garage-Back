@@ -65,6 +65,7 @@ exports.findInvoiceByClient = async function(req, res) {
     res.status(400).json({error})
   }
 }
+
 exports.findInvoiceByCarMatriculeAndInvoiceStatus = async function (req, res) {
   try {
     var db = req.db;
@@ -79,3 +80,26 @@ exports.findInvoiceByCarMatriculeAndInvoiceStatus = async function (req, res) {
     );
   } catch (error) {}
 };
+
+exports.findInvoiceByUserAndGarage = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        garageName: req.params.garageName,
+        garageLocation: req.params.garageLocation,
+        userName: req.params.userName,
+        userSurname: req.params.userSurname
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+
+  } catch (error) {
+    res.status(400).json({error});
+  }
+}

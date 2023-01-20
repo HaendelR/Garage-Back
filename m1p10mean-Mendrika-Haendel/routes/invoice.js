@@ -18,4 +18,8 @@ router.get("/findInvoiceByClient/:clientName/:clientSurname", async function (re
   invoice.findInvoiceByClient(req, res);
 });
 
+router.get("/findInvoiceByUserAndGarage/:garageName/:garageLocation/:userName/:userSurname", async function (req, res) {
+  invoice.findInvoiceByUserAndGarage(req, res);
+});
+
 module.exports = router;
