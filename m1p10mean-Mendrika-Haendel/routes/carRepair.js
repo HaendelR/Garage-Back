@@ -10,8 +10,17 @@ router.post("/addCarRepair", async function (req, res) {
   carRepair.insertCarRepair(req, res);
 });
 
+router.put("/updateCarRepairProblem", async function (req, res) {
+  carRepair.updateStatusCarRepairProblem(req, res);
+});
+
+
 router.get("/carRepairStatusClient/:status/:clientName/:clientSurname", function (req, res) {
   carRepair.findCarRepairByStatusAndClient(req, res);
+});
+
+router.get("/carRepairStatusGarage/:numberPlate/:status/:garageLocation/:garageName", function (req, res) {
+  carRepair.findCarRepairByStatusAndGarageAndMatricule(req, res);
 });
 
 module.exports = router;

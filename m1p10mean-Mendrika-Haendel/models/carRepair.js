@@ -9,6 +9,31 @@ exports.getAllCarRepair = function (req, res) {
   });
 };
 
+exports.updateStatusCarRepairProblem = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.findOneAndUpdate(
+      {
+        "carProblem.entitled": req.body.entitled,
+        numberPlate: req.body.numberPlate,
+      },
+      {
+        $set: { "carProblem.$[l].status": req.body.status },
+      },
+      {
+        arrayFilters: [{ "l.entitled": req.body.entitled }],
+      },
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
 exports.insertCarRepair = async function (req, res) {
   try {
     var carRepair = {
@@ -48,15 +73,38 @@ exports.insertCarRepair = async function (req, res) {
   }
 };
 
-exports.findCarRepairByStatusAndClient = async function(req, res) {
+exports.findCarRepairByStatusAndClient = async function (req, res) {
   var db = req.db;
   var collection = db.get(collections);
 
-  collection.find({
-    status: req.params.status, 
-    clientName: req.params.clientName,
-    clientSurname: req.params.clientSurname 
-  },{}, function(e,docs) {
-    res.status(200).json(docs);
-  });
-}
+  collection.find(
+    {
+      status: req.params.status,
+      clientName: req.params.clientName,
+      clientSurname: req.params.clientSurname,
+    },
+    {},
+    function (e, docs) {
+      res.status(200).json(docs);
+    }
+  );
+};
+
+exports.findCarRepairByStatusAndGarageAndMatricule = async function (req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.findOne(
+    {
+      status: req.params.status,
+      numberPlate: req.params.numberPlate,
+      garageName: req.params.garageName,
+      garageLocation: req.params.garageLocation,
+    },
+    {},
+    function (e, docs) {
+      res.status(200).json(docs);
+      
+    }
+  );
+};
