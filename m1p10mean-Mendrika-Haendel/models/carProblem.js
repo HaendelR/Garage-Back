@@ -15,6 +15,7 @@ exports.insertCarProblem = async function (req, res) {
       entitled: req.body.entitled,
       price: req.body.price,
       status: req.body.status,
+      progress: req.body.progress,
     };
 
     var db = req.db;
