@@ -103,3 +103,24 @@ exports.findInvoiceByUserAndGarage = async function (req, res) {
     res.status(400).json({error});
   }
 }
+
+exports.findInvoiceByGarage = async function(req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        "garageName": req.params.garageName,
+        "garageLocation": req.params.garageLocation
+      },
+      {},
+      function(e,docs) {
+        res.status().json(docs);
+      }
+    )
+
+  } catch(error) {
+
+  }
+}

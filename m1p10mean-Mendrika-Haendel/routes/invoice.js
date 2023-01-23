@@ -22,4 +22,8 @@ router.get("/findInvoiceByUserAndGarage/:garageName/:garageLocation/:userName/:u
   invoice.findInvoiceByUserAndGarage(req, res);
 });
 
+router.get("/findInvoiceByGarage/:garageName/:garageLocation", async function(req, res) {
+  invoice.findInvoiceByGarage(req, res);
+});
+
 module.exports = router;
