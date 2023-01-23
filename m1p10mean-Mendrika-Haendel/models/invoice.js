@@ -116,11 +116,11 @@ exports.findInvoiceByGarage = async function(req, res) {
       },
       {},
       function(e,docs) {
-        res.status().json(docs);
+        res.status(200).json(docs);
       }
     )
 
   } catch(error) {
-
+    res.status(400).json({error});
   }
 }
