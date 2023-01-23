@@ -124,3 +124,27 @@ exports.findInvoiceByGarage = async function(req, res) {
     res.status(400).json({error});
   }
 }
+
+exports.updateStatusInvoice = async function(req, res) {
+  try {
+    var db = req.db
+    var collection = db.get(collections)
+
+    collection.update(
+      {
+        clientName: req.body.clientName,
+        clientSurname: req.body.clientSurname,
+        numberPlate: req.body.numberPlate,
+        status: "NonPayer"
+      },
+      {
+        $set: {status: req.body.status}
+      },
+      function(e, docs) {
+        res.status(200).json(docs)
+      }
+    )
+  } catch(error) {
+    res.status(400).json({error})
+  }
+}
