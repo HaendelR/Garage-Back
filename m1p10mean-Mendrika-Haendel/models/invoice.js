@@ -45,26 +45,25 @@ exports.insertInvoice = async function (req, res) {
   }
 };
 
-
-exports.findInvoiceByClient = async function(req, res) {
+exports.findInvoiceByClient = async function (req, res) {
   try {
-    var db = req.db
-    var collection = db.get(collections)
+    var db = req.db;
+    var collection = db.get(collections);
 
     collection.find(
       {
         clientName: req.params.clientName,
-        clientSurname: req.params.clientSurname
-      }, 
+        clientSurname: req.params.clientSurname,
+      },
       {},
-      function(e, docs) {
-        res.status(200).json(docs)
+      function (e, docs) {
+        res.status(200).json(docs);
       }
-    )
-  } catch(error) {
-    res.status(400).json({error})
+    );
+  } catch (error) {
+    res.status(400).json({ error });
   }
-}
+};
 
 exports.findInvoiceByCarMatriculeAndInvoiceStatus = async function (req, res) {
   try {
@@ -91,18 +90,17 @@ exports.findInvoiceByUserAndGarage = async function (req, res) {
         garageName: req.params.garageName,
         garageLocation: req.params.garageLocation,
         userName: req.params.userName,
-        userSurname: req.params.userSurname
+        userSurname: req.params.userSurname,
       },
       {},
       function (e, docs) {
         res.status(200).json(docs);
       }
     );
-
   } catch (error) {
-    res.status(400).json({error});
+    res.status(400).json({ error });
   }
-}
+};
 
 exports.updateInvoiceStatusNumberPlate = async function (req, res) {
   try {
@@ -118,6 +116,49 @@ exports.updateInvoiceStatusNumberPlate = async function (req, res) {
         $set: {
           status: req.body.updateInvoiceStatus,
         },
+      },
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+exports.findInvoiceByGarage = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        garageName: req.params.garageName,
+        garageLocation: req.params.garageLocation,
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+exports.updateStatusInvoice = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.update(
+      {
+        clientName: req.body.clientName,
+        clientSurname: req.body.clientSurname,
+        numberPlate: req.body.numberPlate,
+        status: "NonPayer",
+      },
+      {
+        $set: { status: req.body.status },
       },
       function (e, docs) {
         res.status(200).json(docs);

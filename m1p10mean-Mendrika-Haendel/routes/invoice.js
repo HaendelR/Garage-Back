@@ -35,4 +35,12 @@ router.put("/updateInvoiceStatusNumberPlate", async function (req, res) {
   invoice.updateInvoiceStatusNumberPlate(req, res);
 });
 
+router.get("/findInvoiceByGarage/:garageName/:garageLocation", async function(req, res) {
+  invoice.findInvoiceByGarage(req, res);
+});
+
+router.put("/updateInvoiceStatus", async function(req, res) {
+  invoice.updateStatusInvoice(req, res);
+});
+
 module.exports = router;
