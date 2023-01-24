@@ -67,14 +67,40 @@ exports.updateStatusCarRepairAndDateFinishAndDuration = async function (
   res
 ) {
   try {
-    let firstDate = req.body.dateTimeStart;
-    console.log("firstDate : ", firstDate);
-    let secondDate = req.body.dateTimeFinish;
-    console.log("secondDate : ", secondDate);
+    var db = req.db;
+    var collection = db.get(collections);
 
+    const findResult = await collection.findOne({
+      numberPlate: req.body.numberPlate,
+      status: req.body.currentStatus,
+    });
+    let firstDate = findResult.dateTimeStart;
+    let secondDate = new Date();
     let duration = Math.abs(secondDate.getTime() - firstDate.getTime());
-    console.log("tapitra2");
 
+    collection.findOneAndUpdate(
+      {
+        numberPlate: req.body.numberPlate,
+        status: req.body.currentStatus,
+      },
+      {
+        $set: {
+          status: req.body.updateStatus,
+          dateTimeStop: new Date(),
+          duration: duration / (1000 * 60),
+        },
+      },
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+
+exports.updateStatusCarRepair = async function (req, res) {
+  try {
     var db = req.db;
     var collection = db.get(collections);
 
@@ -86,8 +112,7 @@ exports.updateStatusCarRepairAndDateFinishAndDuration = async function (
       {
         $set: {
           status: req.body.updateStatus,
-          dateTimeStop: req.body.dateTimeFinish,
-          duration: duration,
+          dateTimeStart: new Date(),
         },
       },
       function (e, docs) {
@@ -119,6 +144,8 @@ exports.insertCarRepair = async function (req, res) {
       status: req.body.status,
       dateTimeStart: req.body.start,
       dateTimeStop: req.body.stop,
+      invoiceStatus: req.body.invoiceStatus,
+      carDepotStatus: req.body.carDepotStatus,
 
       garageName: req.body.garageName,
       garageLocation: req.body.garageLocation,
@@ -156,6 +183,24 @@ exports.findCarRepairByStatusAndClient = async function (req, res) {
   );
 };
 
+exports.findCarRepairByNumberPlateStatusAndClient = async function (req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.findOne(
+    {
+      numberPlate: req.params.numberPlate,
+      status: req.params.status,
+      clientName: req.params.clientName,
+      clientSurname: req.params.clientSurname,
+    },
+    {},
+    function (e, docs) {
+      res.status(200).json(docs);
+    }
+  );
+};
+
 exports.findCarRepairByStatusAndGarageAndMatricule = async function (req, res) {
   var db = req.db;
   var collection = db.get(collections);
@@ -173,3 +218,68 @@ exports.findCarRepairByStatusAndGarageAndMatricule = async function (req, res) {
     }
   );
 };
+
+exports.findCarRepairStatusAndGarage = async function (req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.find(
+    {
+      status: req.params.status,
+      garageName: req.params.garageName,
+      garageLocation: req.params.garageLocation,
+    },
+    {},
+    function (e, docs) {
+      res.status(200).json(docs);
+    }
+  );
+};
+
+exports.findCarRepairStatusInvoiceAndStatusCarDepotAndStatusCarRepairAndClient =
+  async function (req, res) {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        status: req.params.status,
+        clientName: req.params.name,
+        clientSurname: req.params.surname,
+        invoiceStatus: req.params.invoiceStatus,
+        carDepotStatus: req.params.carDepotStatus,
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs);
+      }
+    );
+  };
+
+exports.updateCarRepairStatusInvoiceAndStatusCarDepotAndStatusCarRepair =
+  async function (req, res) {
+    try {
+      var db = req.db;
+      var collection = db.get(collections);
+
+      collection.update(
+        {
+          numberPlate: req.body.numberPlate,
+          status: req.params.status,
+          invoiceStatus: req.params.invoiceStatus,
+          carDepotStatus: req.params.carDepotStatus,
+        },
+        {
+          $set: {
+            invoiceStatus: req.body.updateInvoiceStatus,
+            carDepotStatus: req.params.updateCarDepotStatus,
+          },
+        },
+        function (e, docs) {
+          res.status(200).json(docs);
+        }
+      );
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  };

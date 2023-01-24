@@ -116,7 +116,7 @@ exports.updateStatusCarDepot = async function(req, res) {
     collection.update(
       {
         numberPlate: req.body.numberPlate, 
-        status: "depose"
+        status: req.body.currentStatus
       },
       {
         $set: {status: req.body.status}
