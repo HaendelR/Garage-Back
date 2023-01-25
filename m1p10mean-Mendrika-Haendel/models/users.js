@@ -14,6 +14,9 @@ exports.getusers = function (req, res) {
 
 exports.inscription = async function (req, res) {
   try {
+    var db = req.db;
+    var collection = db.get(collections);
+
     var user = {
       name: req.body.name,
       surname: req.body.surname,
@@ -27,12 +30,18 @@ exports.inscription = async function (req, res) {
       garageLocation: req.body.garageLocation
     };
 
-    var db = req.db;
-    var collection = db.get(collections);
-
-    collection.insert(user, function (e, docs) {
-      res.json(docs);
+    let duplemail = await collection.findOne({
+      email: req.body.email
     });
+
+    if(duplemail) {
+      res.status(400).json({error: "email déjà utilisé"})
+    } else {
+      collection.insert(user, function (e, docs) {
+        res.json(docs);
+      });
+    }
+
   } catch (error) {
     res.status(400).json({ error });
   }
