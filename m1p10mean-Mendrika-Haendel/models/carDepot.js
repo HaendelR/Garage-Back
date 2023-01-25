@@ -130,4 +130,24 @@ exports.updateStatusCarDepot = async function(req, res) {
   }
 
 }
+
+exports.carDepotClient = async function (req, res) {
+  try {
+    var db = req.db
+    var collection = db.get(collections);
+
+    collection.find(
+      {
+        clientEmail: req.params.clientEmail
+      },
+      {},
+      function (e, docs) {
+        res.status(200).json(docs)
+      }
+    );
+
+  } catch(error) {
+    res.status(400).json({error})
+  }
+}
     

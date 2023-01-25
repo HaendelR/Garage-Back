@@ -30,4 +30,8 @@ router.put("/updateStatusCarDepot", async function(req, res) {
   carDepot.updateStatusCarDepot(req, res);
 });
 
+router.get("/carDepotClient/:clientEmail", async function (req, res) {
+  carDepot.carDepotClient(req, res);
+});
+
 module.exports = router;
