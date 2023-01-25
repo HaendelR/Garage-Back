@@ -262,17 +262,17 @@ exports.updateCarRepairStatusInvoiceAndStatusCarDepotAndStatusCarRepair =
       var db = req.db;
       var collection = db.get(collections);
 
-      collection.update(
+      collection.findOneAndUpdate(
         {
           numberPlate: req.body.numberPlate,
-          status: req.params.status,
-          invoiceStatus: req.params.invoiceStatus,
-          carDepotStatus: req.params.carDepotStatus,
+          status: req.body.status,
+          invoiceStatus: req.body.invoiceStatus,
+          carDepotStatus: req.body.carDepotStatus,
         },
         {
           $set: {
             invoiceStatus: req.body.updateInvoiceStatus,
-            carDepotStatus: req.params.updateCarDepotStatus,
+            carDepotStatus: req.body.updateCarDepotStatus,
           },
         },
         function (e, docs) {

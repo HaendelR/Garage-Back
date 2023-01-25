@@ -107,10 +107,10 @@ exports.updateInvoiceStatusNumberPlate = async function (req, res) {
     var db = req.db;
     var collection = db.get(collections);
 
-    collection.update(
+    collection.findOneAndUpdate(
       {
         numberPlate: req.body.numberPlate,
-        status: req.params.status,
+        status: req.body.status,
       },
       {
         $set: {
