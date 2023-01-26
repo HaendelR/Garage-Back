@@ -43,4 +43,12 @@ router.put("/updateInvoiceStatus", async function(req, res) {
   invoice.updateStatusInvoice(req, res);
 });
 
+router.get("/chiffreaffairemois/:mois/:annee/:garageName/:garageLocation", async function(req, res) {
+  invoice.chiffreaffairemois(req, res);
+});
+
+router.get("/chiffreaffairejour/:jour/:garageName/:garageLocation", async function(req, res) {
+  invoice.chiffreaffairejour(req, res);
+});
+
 module.exports = router;

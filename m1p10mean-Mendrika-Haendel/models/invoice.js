@@ -168,3 +168,51 @@ exports.updateStatusInvoice = async function (req, res) {
     res.status(400).json({ error });
   }
 };
+
+exports.chiffreaffairemois = async function (req, res) {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.aggregate([
+      {$match: {"status": "Payer", "garageName":req.params.garageName, "garageLocation":req.params.garageLocation, $and: [{ $expr: {$eq: [{$month: "$datePaiement"},  parseInt(req.params.mois)]}}, {$expr: {$eq: [{$year: "$datePaiement"},  parseInt(req.params.annee)]}}]}},
+      {$group: {_id: {
+          month: {$month: "$datePaiement"},
+          year: {$year: "$datePaiement"},
+          },
+      chiffreaffaire: {$sum: "$amount"}}
+      }
+    ])
+    .then(docs => {
+      return res.json(docs)
+    })
+    .catch(e => {
+      return res.json(e)
+    })
+    
+}
+
+db.invoice.aggregate([
+  { $match: {$expr: {$eq: [{$dateToString: {date: "$datePaiement", format: "%Y-%m-%d"}},{$dateToString: {date: new Date("2023-01-26"), format: "%Y-%m-%d"}}]}}}
+])
+
+exports.chiffreaffairejour = async function (req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.aggregate([
+
+    {$match: {"garageName": req.params.garageName, "garageLocation": req.params.garageLocation, $expr: {$eq: [{ $dateToString: {date: "$datePaiement", format: "%Y-%m-%d"}}, { $dateToString: {date: new Date(req.params.jour), format: "%Y-%m-%d"}}]}}},
+    {$group: {_id: {
+      date: { $dateToString: {date: "$datePaiement", format: "%Y-%m-%d"}},
+      },
+      chiffreaffaire: {$sum: "$amount"}}
+    }
+  ])
+  .then(docs => {
+    return res.json(docs)
+  })
+  .catch(e => {
+    return res.json(e)
+  })
+
+}
