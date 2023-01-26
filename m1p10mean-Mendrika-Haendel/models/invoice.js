@@ -115,6 +115,7 @@ exports.updateInvoiceStatusNumberPlate = async function (req, res) {
       {
         $set: {
           status: req.body.updateInvoiceStatus,
+          datePaiement: new Date()
         },
       },
       function (e, docs) {
