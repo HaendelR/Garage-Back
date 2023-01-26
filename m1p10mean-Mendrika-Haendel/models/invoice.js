@@ -191,10 +191,6 @@ exports.chiffreaffairemois = async function (req, res) {
     
 }
 
-db.invoice.aggregate([
-  { $match: {$expr: {$eq: [{$dateToString: {date: "$datePaiement", format: "%Y-%m-%d"}},{$dateToString: {date: new Date("2023-01-26"), format: "%Y-%m-%d"}}]}}}
-])
-
 exports.chiffreaffairejour = async function (req, res) {
   var db = req.db;
   var collection = db.get(collections);
