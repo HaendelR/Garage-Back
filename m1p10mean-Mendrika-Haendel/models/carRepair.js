@@ -283,3 +283,19 @@ exports.updateCarRepairStatusInvoiceAndStatusCarDepotAndStatusCarRepair =
       res.status(400).json({ error });
     }
   };
+
+exports.findCarRepairByDateStopAndMatricule = async function (req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.findOne(
+    {
+      numberPlate: req.params.numberPlate,
+      dateTimeStop: new Date(req.params.dateTimeStop),
+    },
+    {},
+    function (e, docs) {
+      res.status(200).json(docs);
+    }
+  );
+};
