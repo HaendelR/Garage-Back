@@ -80,13 +80,8 @@ router.put(
 router.get(
   "/carRepairNumberPlateAndDateStop/:numberPlate/:dateTimeStop",
   function (req, res) {
-    carRepair.findCarRepairByDateStopAndMatricule(
-      req,
-      res
-    );
+    carRepair.findCarRepairByDateStopAndMatricule(req, res);
   }
 );
-
-
 
 module.exports = router;

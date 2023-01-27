@@ -265,7 +265,6 @@ exports.updateCarRepairStatusInvoiceAndStatusCarDepotAndStatusCarRepair =
       collection.findOneAndUpdate(
         {
           numberPlate: req.body.numberPlate,
-          status: req.body.status,
           invoiceStatus: req.body.invoiceStatus,
           carDepotStatus: req.body.carDepotStatus,
         },
