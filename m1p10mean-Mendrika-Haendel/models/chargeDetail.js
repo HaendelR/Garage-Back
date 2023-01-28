@@ -38,7 +38,7 @@ exports.insertChargeDetail = async function (req,res) {
 
     var chargeDetail = {
       intitule: req.body.intitule,
-      dateTimeCharge: req.body.dateTimeCharge,
+      dateTimeCharge: new Date(req.body.dateTimeCharge),
       garageName: req.body.garageName,
       garageLocation: req.body.garageLocation,
       garageRent: req.body.garageRent,
@@ -59,4 +59,25 @@ exports.insertChargeDetail = async function (req,res) {
   } catch(e) {
     res.status(400).json({e});
   }
+}
+
+exports.totalDepenseMois = async function(req, res) {
+  var db = req.db;
+  var collection = db.get(collections);
+
+  collection.aggregate([
+    {$match: {"garageName": req.params.garageName, "garageLocation": req.params.garageLocation, $and: [{ $expr: {$eq: [{$month: "$dateTimeCharge"},  parseInt(req.params.mois)]}}, {$expr: {$eq: [{$year: "$dateTimeCharge"},  parseInt(req.params.annee)]}}] }},
+    {$group: {_id: {
+        month: {$month: "$dateTimeCharge"},
+        year: {$year: "$dateTimeCharge"},
+        },
+    totaldepense: {$sum: "$amount"}}
+    }
+  ])
+  .then(docs => {
+    return res.json(docs)
+  })
+  .catch(e => {
+    return res.json(e)
+  })
 }

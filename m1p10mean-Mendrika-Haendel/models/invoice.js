@@ -213,3 +213,9 @@ exports.chiffreaffairejour = async function (req, res) {
   })
 
 }
+
+
+// db.chargeDetail.aggregate([
+//   {$match: {"garageName": "garage2", "garageLocation": "Itaosy", $and: [{ $expr: {$eq: [{$month: "$dateTimeCharge"},  1]}}, {$expr: {$eq: [{$year: "$dateTimeCharge"},  2023]}}] }},
+ 
+// ])

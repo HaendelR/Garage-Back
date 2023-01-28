@@ -10,4 +10,8 @@ router.post("/addChargeDetail", async function (req, res) {
   chargeDetail.insertChargeDetail(req, res);
 });
 
+router.get("/depensemois/:mois/:annee/:garageName/:garageLocation", async function(req, res) {
+  chargeDetail.totalDepenseMois(req, res);
+})
+
 module.exports = router;
