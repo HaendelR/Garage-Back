@@ -1,5 +1,5 @@
 var createError = require("http-errors");
-require("dotenv").config();
+// require("dotenv").config();
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -28,7 +28,7 @@ var invoiceRouter = require("./routes/invoice");
 var sendMailRouter = require("./routes/sendMail");
 
 var app = express();
-app.set("port", process.env.PORT || 3000);
+// app.set("port", process.env.PORT || 3000);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
