@@ -18,4 +18,9 @@ router.get('/me', async function(req, res) {
   users.userconnecte(req, res);
 })
 
+router.get('/userByGarage/:garageName/:garageLocation', async function(req, res) {
+  users.getUserWhereGarage(req, res);
+})
+
+
 module.exports = router;

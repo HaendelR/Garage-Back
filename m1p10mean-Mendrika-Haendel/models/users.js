@@ -104,3 +104,23 @@ exports.userconnecte = async function (req, res) {
   }
   
 }
+
+exports.getUserWhereGarage = async function (req, res) {
+  try {
+    var db = req.db;
+    var collection = db.get(collections);
+
+    collection.find({
+      garageName: req.params.garageName,
+      garageLocation: req.params.garageLocation,
+      role: {$ne : "client"}
+    },
+    {},
+    function(e, docs) {
+      res.status(200).json(docs);
+    });
+
+  } catch(e) {
+
+  }
+}
