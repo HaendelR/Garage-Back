@@ -8,7 +8,8 @@ const cors = require("cors");
 
 var mongo = require("mongodb");
 var monk = require("monk");
-var db = monk("localhost:27017/garage");
+// var db = monk("localhost:27017/garage");
+var db = monk("mongodb+srv://basedonnees:projetRojo@cluster0.act2jb1.mongodb.net/garage?retryWrites=true&w=majority");
 
 // var indexRouter = require('./routes/index');
 var usersRouter = require("./routes/users");
